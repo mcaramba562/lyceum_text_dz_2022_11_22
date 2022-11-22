@@ -31,8 +31,8 @@ const ll INFll = 1000000000000000000ll;
 
 string make_good(string s) {
     int l = 0, r = s.length() - 1;
-    string russk_m = "éöóêåíãøùçõúôûâàïğîëäæıÿ÷ñìèòüáş";
-    string russk_b = "ÉÖÓÊÅÍÃØÙÇÕÚÔÛÂÀÏĞÎËÄÆİß×ÑÌÈÒÜÁŞ";
+    string russk_m = "Ğ¹Ñ†ÑƒĞºĞµĞ½Ğ³ÑˆÑ‰Ğ·Ñ…ÑŠÑ„Ñ‹Ğ²Ğ°Ğ¿Ñ€Ğ¾Ğ»Ğ´Ğ¶ÑÑÑ‡ÑĞ¼Ğ¸Ñ‚ÑŒĞ±Ñ";
+    string russk_b = "Ğ¹Ñ†ÑƒĞºĞµĞ½Ğ³ÑˆÑ‰Ğ·Ñ…ÑŠÑ„Ñ‹Ğ²Ğ°Ğ¿Ñ€Ğ¾Ğ»Ğ´Ğ¶ÑÑÑ‡ÑĞ¼Ğ¸Ñ‚ÑŒĞ±Ñ";
     for (int i = 0; i < s.length(); i++) {
         if (russk_b.find(s[i]) != string::npos) {
             s[i] = russk_m[russk_b.find(s[i])];
@@ -41,7 +41,7 @@ string make_good(string s) {
             s[i] = tolower(s[i]);
         }
     }
-    string bykv = "qwertyuiopasdfghjkzxcvbnmQWERTYUIOOPASDFGHJKLZXCVBNMéöóêåíãøùçõúôûâàïğîëäæıÿ÷ñìèòüáşÉÖÓÊÅÍÃØÙÇÕÚÔÛÂÀÏĞÎËÄÆİß×ÑÌÈÒÜÁŞ";
+    string bykv = "qwertyuiopasdfghjkzxcvbnmQWERTYUIOOPASDFGHJKLZXCVBNMĞ¹Ñ†ÑƒĞºĞµĞ½Ğ³ÑˆÑ‰Ğ·Ñ…ÑŠÑ„Ñ‹Ğ²Ğ°Ğ¿Ñ€Ğ¾Ğ»Ğ´Ğ¶ÑÑÑ‡ÑĞ¼Ğ¸Ñ‚ÑŒĞ±ÑÑ";
     while (bykv.find(s[l]) == string::npos) {
         //cout << s[l] << " " << l << "\n";
         l++;
@@ -81,7 +81,9 @@ void solve() {
             a.push_back(cur_2);
         }
     }
-    string gl = "àîèûóıÀÎÈÛÓİ";    
+    string gl = "ĞµĞ°Ğ¾ÑĞ¸ÑÑ‹ÑƒÑ";  
+    string sogl = "Ğ¹Ñ†ĞºĞ½Ğ³ÑˆÑ‰Ğ·Ñ…ÑŠÑ„Ğ²Ğ¿Ñ€Ğ»Ğ´Ğ¶Ñ‡ÑĞ¼Ñ‚ÑŒĞ±";  
+    
     int ans = 0;
     for (int i = 0;i < a.size() - 1;i++) {
         int f = 0, s = 0;
@@ -95,10 +97,10 @@ void solve() {
             f++;
         }
 
-        if (gl.find(a[i + 1][0]) != string::npos) {
+        if (sogl.find(a[i + 1][0]) != string::npos) {
             s++;
         }
-        if (gl.find(a[i + 1][1]) != string::npos) {
+        if (sogl.find(a[i + 1][1]) != string::npos) {
             s++;
         }
         //cout << a[i] << " " << a[i + 1] << " " << f << " " << s << "\n";
@@ -110,7 +112,7 @@ void solve() {
 }
 
 signed main() {
-    SetConsoleCP(1251);
+    SetConsoleCP(1251); 
     SetConsoleOutputCP(1251);
 #ifdef LOCAL
     freopen("input.txt", "r", stdin);
