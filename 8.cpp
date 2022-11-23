@@ -70,6 +70,8 @@ int solve_8(vector<string> vvod) {
     for (int i = 0;i < vvod.size();i++) {
         s = vvod[i];
         s = make_good_8(s);
+        if (s == '—')
+            continue;
         //cout << s << "\n";
         int o = is_def_8(s);
         if (o == -1) {
