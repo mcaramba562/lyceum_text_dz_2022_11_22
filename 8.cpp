@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include <vector>
 #include <map>
 #include <algorithm>
@@ -29,7 +30,8 @@ const ll mod = 1791791791;
 const int INF = 1000000000;
 const ll INFll = 1000000000000000000ll;
 
-string make_good(string s) {
+
+string make_good_8(string s) {
     int l = 0, r = s.length() - 1;
     string russk_m = "йцукенгшщзхъфывапролджэячсмитьбю";
     string russk_b = "йцукенгшщзхъфывапролджэячсмитьбю";
@@ -42,12 +44,10 @@ string make_good(string s) {
         }
     }
     string bykv = "qwertyuiopasdfghjkzxcvbnmQWERTYUIOOPASDFGHJKLZXCVBNMйцукенгшщзхъфывапролджэячсмитьбюю";
-    while (bykv.find(s[l]) == string::npos) {
-        //cout << s[l] << " " << l << "\n";
+    while (bykv.find(s[l]) == string::npos && l + 1 < s.length()) {
         l++;
     }
-    while (bykv.find(s[r]) == string::npos) {
-        //cout << s[r] << " " << r << "\n";
+    while (bykv.find(s[r]) == string::npos && r - 1 >= 0) {
         r--;
     }
     //cout << s << " " << l << " " << r << " " << s.substr(l, r - l + 1) << "\n";
@@ -55,7 +55,7 @@ string make_good(string s) {
     return s.substr(l, r - l + 1);
 }
 
-int is_def(string s) {
+int is_def_8(string s) {
     for (int i = 0; i < s.length(); i++) {
         if (s[i] == '-') {
             return i;
@@ -64,13 +64,14 @@ int is_def(string s) {
     return -1;
 }
 
-void solve() {
+int solve_8(vector<string> vvod) {
     string s;
     vector<string> a;
-    while (cin >> s) {
-        s = make_good(s);
+    for (int i = 0;i < vvod.size();i++) {
+        s = vvod[i];
+        s = make_good_8(s);
         //cout << s << "\n";
-        int o = is_def(s);
+        int o = is_def_8(s);
         if (o == -1) {
             a.push_back(s);
         }
@@ -81,11 +82,11 @@ void solve() {
             a.push_back(cur_2);
         }
     }
-    string gl = "еаояиюыуэ";  
-    string sogl = "йцкнгшщзхъфвпрлджчсмтьб";  
-    
+    string gl = "еаояиюыуэ";
+    string sogl = "йцкнгшщзхъфвпрлджчсмтьб";
+
     int ans = 0;
-    for (int i = 0;i < a.size() - 1;i++) {
+    for (int i = 0; i < a.size() - 1; i++) {
         int f = 0, s = 0;
         if (a[i].size() <= 1 || a[i + 1].size() <= 1) {
             continue;
@@ -108,11 +109,11 @@ void solve() {
             ans++;
         }
     }
-    cout << ans;
+    return ans;
 }
 
 signed main() {
-    SetConsoleCP(1251); 
+    SetConsoleCP(1251);
     SetConsoleOutputCP(1251);
 #ifdef LOCAL
     freopen("input.txt", "r", stdin);
@@ -121,8 +122,12 @@ signed main() {
     fast_io;
     ll t = 1;
     //cin >> t;
+    vector<string> vvod;
+    string s;
+    while (cin >> s)vvod.push_back(s);
     while (t--) {
-        solve();
+        int ans = solve_8(vvod);
+        cout << ans;
     }
     return 0;
 }
