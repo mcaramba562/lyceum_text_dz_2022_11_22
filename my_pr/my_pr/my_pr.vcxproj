@@ -140,10 +140,18 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="my_pr.cpp" />
+    <ClCompile Include="Entropia.cpp" />
+    <ClCompile Include="task_3.cpp" />
+    <ClCompile Include="task_6.cpp" />
+    <ClCompile Include="task_7.cpp" />
     <ClCompile Include="task_8.cpp" />
     <ClCompile Include="task_9.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Entropia.h" />
+    <ClInclude Include="task_3.h" />
+    <ClInclude Include="task_6.h" />
+    <ClInclude Include="task_7.h" />
     <ClInclude Include="task_8.h" />
     <ClInclude Include="task_9.h" />
   </ItemGroup>

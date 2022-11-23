@@ -1,5 +1,6 @@
 #include <string>
 #include <vector>
+#include <iostream>
 
 #include "task_7.h"
 
@@ -18,12 +19,10 @@ string make_good_7(string s) {
         }
     }
     string bykv = "qwertyuiopasdfghjkzxcvbnmQWERTYUIOOPASDFGHJKLZXCVBNMéöóêåíãøùçõúôûâàïğîëäæıÿ÷ñìèòüáşş";
-    while (bykv.find(s[l]) == string::npos) {
-        //cout << s[l] << " " << l << "\n";
+    while (bykv.find(s[l]) == string::npos && l + 1 < s.length()) {
         l++;
     }
-    while (bykv.find(s[r]) == string::npos) {
-        //cout << s[r] << " " << r << "\n";
+    while (bykv.find(s[r]) == string::npos && r - 1 >= 0) {
         r--;
     }
     //cout << s << " " << l << " " << r << " " << s.substr(l, r - l + 1) << "\n";
@@ -43,7 +42,7 @@ int is_def_7(string s) {
 pair<int, int> solve_7(vector<string> vvod) {
     string s;
     vector<string> a;
-    for (int i = 0;i < vvod.size();i++) {
+    for (int i = 0; i < vvod.size(); i++) {
         s = vvod[i];
         s = make_good_7(s);
         //cout << s << "\n";
@@ -66,18 +65,27 @@ pair<int, int> solve_7(vector<string> vvod) {
         int f = 0, s = 0;
         for (int j = 0; j < a[i].size(); j++) {
             if (gl.find(a[i][j]) != string::npos) {
-                //cout << a[i][j] << " " << i << " " << j << "\n";
+                //cout << a[i] << " " << j << "\n";
                 f++;
+                s = 0;
             }
             else if (sogl.find(a[i][j]) != string::npos) {
                 s++;
+                f = 0;
             }
+            else {
+                f = 0;
+                s = 0;
+            }
+
             if (f == 3) {
                 f = 0;
+                //cout << a[i] << " " << j - 2 << " " << j << "\n";
                 ans_gl++;
             }
             if (s == 3) {
                 s = 0;
+                //cout << a[i] << " " << j - 2 << " " << j << "\n";
                 ans_sogl++;
             }
         }

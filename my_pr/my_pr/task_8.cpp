@@ -1,10 +1,10 @@
 #include <string>
 #include <vector>
+#include <iostream>
 
 #include "task_8.h"
 
 using namespace std;
-
 
 string make_good_8(string s) {
     int l = 0, r = s.length() - 1;
@@ -19,12 +19,10 @@ string make_good_8(string s) {
         }
     }
     string bykv = "qwertyuiopasdfghjkzxcvbnmQWERTYUIOOPASDFGHJKLZXCVBNMéöóêåíãøùçõúôûâàïğîëäæıÿ÷ñìèòüáşş";
-    while (bykv.find(s[l]) == string::npos) {
-        //cout << s[l] << " " << l << "\n";
+    while (bykv.find(s[l]) == string::npos && l + 1 < s.length()) {
         l++;
     }
-    while (bykv.find(s[r]) == string::npos) {
-        //cout << s[r] << " " << r << "\n";
+    while (bykv.find(s[r]) == string::npos && r - 1 >= 0) {
         r--;
     }
     //cout << s << " " << l << " " << r << " " << s.substr(l, r - l + 1) << "\n";
@@ -44,9 +42,12 @@ int is_def_8(string s) {
 int solve_8(vector<string> vvod) {
     string s;
     vector<string> a;
-    for (int i = 0;i < vvod.size();i++) {
+    for (int i = 0; i < vvod.size(); i++) {
         s = vvod[i];
         s = make_good_8(s);
+        if (s[0] == '—') {
+            continue;
+        }
         //cout << s << "\n";
         int o = is_def_8(s);
         if (o == -1) {
@@ -81,8 +82,10 @@ int solve_8(vector<string> vvod) {
         if (sogl.find(a[i + 1][1]) != string::npos) {
             s++;
         }
-        //cout << a[i] << " " << a[i + 1] << " " << f << " " << s << "\n";
+
+        
         if (f == 2 && s == 2) {
+            //cout << a[i] << " " << a[i + 1] << " " << f << " " << s << "\n";
             ans++;
         }
     }

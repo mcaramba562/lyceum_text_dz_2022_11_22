@@ -1,5 +1,3 @@
-﻿  my_pr.cpp
-  task_8.cpp
-D:\cpp_for_lyceum\my_pr\my_pr\task_8.cpp(10,34): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
-  Создание кода...
+﻿  task_7.cpp
+D:\cpp_for_lyceum\my_pr\my_pr\task_7.cpp(10,34): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
   my_pr.vcxproj -> D:\cpp_for_lyceum\my_pr\x64\Debug\my_pr.exe

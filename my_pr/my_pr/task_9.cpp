@@ -1,11 +1,11 @@
-#include <map>
+#include <string>
 #include <vector>
-#include <iostream>
+#include <map>
+#include <algorithm>
 
 #include "task_9.h"
 
 using namespace std;
-
 string make_good_9(string s) {
     int l = 0, r = s.length() - 1;
     string russk_m = "éöóêåíãøùçõúôûâàïğîëäæıÿ÷ñìèòüáş";
@@ -18,13 +18,15 @@ string make_good_9(string s) {
             s[i] = tolower(s[i]);
         }
     }
+
     string bykv = "qwertyuiopasdfghjkzxcvbnmQWERTYUIOOPASDFGHJKLZXCVBNMéöóêåíãøùçõúôûâàïğîëäæıÿ÷ñìèòüáşÉÖÓÊÅÍÃØÙÇÕÚÔÛÂÀÏĞÎËÄÆİß×ÑÌÈÒÜÁŞ";
-    while (bykv.find(s[l]) == string::npos) {
+    while (bykv.find(s[l]) == string::npos && l + 1 < s.length()) {
         l++;
     }
-    while (bykv.find(s[r]) == string::npos) {
+    while (bykv.find(s[r]) == string::npos && r - 1 >= 0) {
         r--;
     }
+
     return s.substr(l, r - l + 1);
 }
 
@@ -37,7 +39,11 @@ int is_def_9(string s) {
     return -1;
 }
 
-void solve_9(vector<string> vvod) {
+bool cmp_9(pair<string, int> x, pair<string, int> y) {
+    return x.second > y.second;
+}
+
+vector<pair<string, int> > solve_9(vector<string> vvod) {
     map<string, int> m;
     string s;
     for (int i = 0; i < vvod.size(); i++) {
@@ -56,11 +62,15 @@ void solve_9(vector<string> vvod) {
         }
     }
     int k = 0;
+    vector<pair<string, int> > ans;
     for (auto cur : m) {
-        if (k > 10) {
-            return;
-        }
-        cout << cur.first << ": " << cur.second << "\n";
-        k++;
+        ans.push_back({ cur.first, cur.second });
     }
+    sort(ans.begin(), ans.end(), cmp_9);
+    return ans;
+}
+
+vector<pair<string, int> > Answer_9(vector<string> vvod) {
+    vector<pair<string, int> > ans = solve_9(vvod);
+    return ans;
 }
