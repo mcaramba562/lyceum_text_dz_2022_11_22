@@ -1,25 +1,23 @@
 #include <fstream>
 #include <string>
 #include <map>
-#include <clocale> 
+#include <windows.h>
 
 using namespace std;
 
-int main() { 
+int main() {
     ifstream fin("input.txt");
     ofstream fout("output.txt");
-    setlocale(LC_ALL, "rus");
-    string s = "СТ";
-    fout << s[0] << " " << s[1];
-    /* 
+    SetConsoleCP(1251);
+    SetConsoleOutputCP(1251);
     string s;
-    getline(fin, s);
-    s += "  ";
-    fout << s << endl;
+    string s3 = "аб";
+    fout << s3 << endl;
     map <string, int> m;
-    for (int i = 0; i < s.size() - 1; ++i) {
+    while (getline(fin, s)) {
+    for (int i = 0; i < s.size(); ++i) {
         string s1 = "";
-        s1 += s[i] + s[i + 1];
+        s1 += toupper(s[i]) + toupper(s[i + 1]);
         fout << s1;
         if (s1 == "СТ"){
             m["СТ"]++;
@@ -69,7 +67,10 @@ int main() {
             m["ОВА"]++;
         }
     }
-    fout << m["СТ"];
-    */
+    }
+    for (auto i : m) {
+        fout << i.first << " " << i.second << endl;
+    }
+
     return 0;
 }
