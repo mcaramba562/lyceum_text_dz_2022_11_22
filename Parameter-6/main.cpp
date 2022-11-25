@@ -4,7 +4,7 @@ using namespace std;
 
 long long words[4] = {0, 0, 0, 0};
 
-string vowels = "ёеыаоэяию";
+string vowels = "";
 
 int main() {
     vowels.push_back(-1);
