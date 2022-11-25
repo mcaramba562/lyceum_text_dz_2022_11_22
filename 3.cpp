@@ -1,6 +1,3 @@
-// z3_ok.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
 #include <iostream>
 #include <Windows.h>
 #include <map>
@@ -14,7 +11,7 @@ wifstream fin("input.txt");
 wofstream fout("output.txt");
 map<wstring,int> pred_so;
 map<wstring, int> ::iterator it;
-wstring znaki = L".,?:!«»";
+wstring znaki = L".,?:!«»\"„";
 wstring zag_b = L"ЁЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ";
 wstring stroch_b = L"ёйцукенгшщзхъфывапролджэячсмитьбю";
 map<wstring, wstring> zag_stroch = {
@@ -39,18 +36,39 @@ map<wstring, wstring> zag_stroch = {
 	{L"У" , L"у"},
 	{L"Э" , L"э"},
 	{L"Я" , L"я"},
-	{L"Ч" , L"ч"}
+	{L"Ч" , L"ч"},
+	{L"Ш" , L"ш" }
 };
 
 set<wstring> ne_pred =
 {
-	L"я", L"мы", L"вы",L"ему", L"мог", L"мой" ,L"нам",L"нас",L"той",L"ума",L"он",L"это",L"три",L"был",L"все",L"дня",L"ее",L"его",L"их",L"она",L"ей",L"не"
+	L"пар", L"рук", L"шее",L"зал", L"бал", L"дам" ,L"усы",L"тур",L"ума",L"три",L"был",L"дня",L"не",L"лет",L"шаг",L"шел",L"шею",L"шея",L"ног",L"мог",L"ах",L"том",L"хо-",L"шла",L"бог",L"два",L"две",L"дом",L"миг",L"муж",L"лиц",L"сэр",L"сын",L"яд",L"яде",L"ум",L"ста",L"дна",L"раз",L"ухо",L"дал",L"де",L"джо",L"жив",L"зря",L"час",L"шум",L"пил",L"рот",L"тип",L"имя",L"шли",L"сот",L"сел"
 };
 
 set<wstring> b_pred =
 {
-	L"чтобы",L"если",L"хотя"
+	L"чтобы",L"если",L"хотя",L"него",L"свою",L"вами",L"свою",L"даже",L"мной", L"потом", L"тоже", L""
 };
+
+set<wstring> predlogi =
+{
+	L"без",L"безо",L"благодаря",L"близ",L"в",L"вблизи",L"ввиду",L"вглубь",L"вдогон",L"вдоль" ,L"взамен",L"включая",L"вкруг",L"вместо",L"вкруг",L"вместо",L"вне",L"внизу",L"внутри",L"внутрь",L"во",L"вовнутрь",L"возле",L"вокруг",L"вопреки",L"вослед",L"впереди",L"вразрез",L"вроде",L"вслед",L"вследствие",L"встречу",L"выключая",L"выше",L"для",L"до",L"за",L"замест",L"из",L"из-за",L"из-под",L"изнутри",L"изо",L"исключая",L"к",L"касаемо",L"касательно",L"ко",L"кончая",L"кроме",L"кругом",L"меж",L"между",L"мимо",L"на",L"наверху",L"навроде",L"навстречу",L"над",L"надо",L"назад",L"несмотря",L"напротив",L"насчёт",L"наподобие",L"насчёт",L"ниже",L"о",L"об",L"обо",L"около",L"от",L"относительно",L"перед",L"передо",L"по",L"поверх",L"под",L"подле",L"подо",L"подобно",L"позади",L"помимо",L"позднее",L"помимо",L"поперёк",L"порядка",L"посередине",L"после",L"посреди",L"посредине",L"пред",L"предо",L"прежде",L"при",L"про",L"промеж",L"против",L"ради",L"с"
+};
+
+map <wstring,int> m_predlogi;
+
+set<wstring> souzi =
+{
+	L"будто",L"вроде",L"да",L"даж",L"едва",L"если",L"же",L"затем",L"зато",L"и",L"или",L"итак",L"кабы",L"как",L"когда",L"ли",L"а",L"аж",L"благо",L"лишь",L"нежели",L"но",L"пока",L"покуда",L"поскольку",L"притом",L"причем",L"пускай",L"пусть",L"раз",L"разве",L"ровно",L"словно",L"так",L"также",L"тоже",L"только",L"точно",L"хоть",L"хотя",L"чем",L"чисто",L"что",L"чтобы",L"чуть",L"якобы"
+};
+
+map <wstring, int> m_souzi;
+
+set<wstring> mestoim =
+{
+	L"я",L"меня",L"мне",L"мной",L"ты",L"тебя",L"тебе",L"тобой",L"он",L"его",L"ему",L"она",L"им",L"нем",L"ее",L"ей",L"ею",L"ней",L"нас",L"нам",L"нами",L"мы",L"вы",L"выс",L"вам",L"вами",L"они",L"их",L"им",L"ими",L"них",L"оно",L"себя",L"себе",L"собой",L"себе",L"кто",L"кого",L"кому",L"кем",L"ком",L"что",L"чего",L"чему",L"чем",L"сколько",L"скольких",L"скольким",L"какой",L"чей",L"какое",L"чье",L"какого",L"чьего",L"какому",L"чьему",L"каким",L"чьим",L"каком",L"чьем",L"какая",L"чья",L"чьей",L"чью",L"какую",L"какой",L"чьей",L"какие",L"чьи",L"каких",L"чьих",L"каким",L"чьим",L"какие",L"чьи",L"каких",L"чьих",L"какими",L"чьими",L"который",L"которое",L"которая",L"которые",L"которого",L"которому",L"который",L"которым",L"котором",L"которой",L"которую",L"которых",L"которым",L"которыми",L"мой",L"ваш",L"мое",L"ваше",L"моя",L"ваша",L"мой",L"ваши",L"такой",L"этот",L"такое",L"это"
+};
+map <wstring, int> m_mestoim;
 
 void trim(wstring& st)
 {
@@ -119,14 +137,42 @@ void obrab(wstring st)
 				slovo = ch + slovo;
 			}
 		}
-		if ((pos_prob <= 3 && slovo!=L"-" && slovo != L"—" && ne_pred.find(slovo) == ne_pred.end()) ||  b_pred.find(slovo) != b_pred.end())
+		if (predlogi.find(slovo) != predlogi.end())
 		{
-			it = pred_so.find(slovo);
-			if (it == pred_so.end())
+			it = m_predlogi.find(slovo);
+			if (it == m_predlogi.end())
 			{
-				pair<wstring,int> par;
+				pair<wstring, int> par;
 				par = make_pair(slovo, 1);
-				pred_so.insert(par);
+				m_predlogi.insert(par);
+			}
+			else
+			{
+				it->second++;
+			}
+		}
+		if (souzi.find(slovo) != souzi.end())
+		{
+			it = m_souzi.find(slovo);
+			if (it == m_souzi.end())
+			{
+				pair<wstring, int> par;
+				par = make_pair(slovo, 1);
+				m_souzi.insert(par);
+			}
+			else
+			{
+				it->second++;
+			}
+		}
+		if (mestoim.find(slovo) != mestoim.end())
+		{
+			it = m_mestoim.find(slovo);
+			if (it == m_mestoim.end())
+			{
+				pair<wstring, int> par;
+				par = make_pair(slovo, 1);
+				m_mestoim.insert(par);
 			}
 			else
 			{
@@ -139,9 +185,10 @@ void obrab(wstring st)
 
 void vout()
 {
-	int maxx1 = 0, maxx2 = 0, maxx3 = 0,i = 0;
+	int maxx1 = 0, maxx2 = 0, maxx3 = 0,i = 0,kol_pred =0 ;
 	wstring st1 = L"", st2 = L"", st3 = L"";
-	for (it = pred_so.begin(); it != pred_so.end(); it++)
+	fout << "Predlogi: " << endl;
+	for (it = m_predlogi.begin(); it != m_predlogi.end(); it++)
 	{
 		wstring st = it->first;
 		fout << st << ": ";
@@ -150,7 +197,10 @@ void vout()
 		if (st.length() == 3) fout << "  ";
 		if (st.length() == 4) fout << " ";
 		int a = it->second;
+		kol_pred += a;
 		fout << a << ", ";
+		if (it->second < 10) fout << " ";
+		if (it->second < 100) fout << " ";
 		if (a > maxx1)
 		{
 			maxx1 = a;
@@ -182,6 +232,105 @@ void vout()
 			i = 0;
 		}
 	}
+	fout << endl << "In total: " << kol_pred;
+	fout << endl << "TOP 3 most popular: " << st1 << ", " << st2 << ", " << st3;
+	maxx1 = 0, maxx2 = 0, maxx3 = 0, i = 0, kol_pred = 0;
+	st1 = L"", st2 = L"", st3 = L"";
+	fout << endl <<  "Souzi: " << endl;
+	for (it = m_souzi.begin(); it != m_souzi.end(); it++)
+	{
+		wstring st = it->first;
+		fout << st << ": ";
+		if (st.length() == 1) fout << "    ";
+		if (st.length() == 2) fout << "   ";
+		if (st.length() == 3) fout << "  ";
+		if (st.length() == 4) fout << " ";
+		int a = it->second;
+		kol_pred += a;
+		fout << a << ", ";
+		if (it->second < 10) fout << " ";
+		if (it->second < 100) fout << " ";
+		if (a > maxx1)
+		{
+			maxx1 = a;
+			st3 = st2;
+			st2 = st1;
+			st1 = it->first;
+		}
+		else
+		{
+			if (a > maxx2)
+			{
+				maxx2 = a;
+				st3 = st2;
+				st2 = it->first;
+			}
+			else
+			{
+				if (a > maxx3)
+				{
+					maxx3 = a;
+					st3 = it->first;
+				}
+			}
+		}
+		i++;
+		if (i == 5)
+		{
+			fout << endl;
+			i = 0;
+		}
+	}
+	fout << endl << "In total: " << kol_pred;
+	fout << endl << "TOP 3 most popular: " << st1 << ", " << st2 << ", " << st3;
+	maxx1 = 0, maxx2 = 0, maxx3 = 0, i = 0, kol_pred = 0;
+	st1 = L"", st2 = L"", st3 = L"";
+	fout << endl << "Mestoim: " << endl;
+	for (it = m_mestoim.begin(); it != m_mestoim.end(); it++)
+	{
+		wstring st = it->first;
+		fout << st << ": ";
+		if (st.length() == 1) fout << "    ";
+		if (st.length() == 2) fout << "   ";
+		if (st.length() == 3) fout << "  ";
+		if (st.length() == 4) fout << " ";
+		int a = it->second;
+		kol_pred += a;
+		fout << a << ", ";
+		if (it->second < 10) fout << " ";
+		if (it->second < 100) fout << " ";
+		if (a > maxx1)
+		{
+			maxx1 = a;
+			st3 = st2;
+			st2 = st1;
+			st1 = it->first;
+		}
+		else
+		{
+			if (a > maxx2)
+			{
+				maxx2 = a;
+				st3 = st2;
+				st2 = it->first;
+			}
+			else
+			{
+				if (a > maxx3)
+				{
+					maxx3 = a;
+					st3 = it->first;
+				}
+			}
+		}
+		i++;
+		if (i == 5)
+		{
+			fout << endl;
+			i = 0;
+		}
+	}
+	fout << endl << "In total: " << kol_pred;
 	fout << endl << "TOP 3 most popular: " << st1 << ", " << st2 << ", " << st3;
 }
 
