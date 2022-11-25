@@ -1,0 +1,49 @@
+#include <iostream>
+#include <string>
+#include <windows.h>
+#include <vector>
+using namespace std;
+
+DisplayLetterFrequencyTable(string s)
+{
+    vector<int> table(33, 0);
+    int numYO=0;
+    for(int i=0;i<=s.length();i++)
+    {
+
+        if(s[i] == 'ё'  s[i] == 'Ё')
+        {
+            numYO++;
+        }
+
+        int kod = (int)s[i];
+        if(kod >= (int)'а' && kod <= (int)'я')
+        {
+            table[kod-(int)'а']++;
+        }
+        if(kod >= (int)'А' && kod <= (int)'Я')
+        {
+            table[kod-(int)'А']++;
+        }
+    }
+    for(int i=0; i<32;i++)
+    {
+        if(i == 6)
+        {
+            cout << 'ё' << "  " << numYO << " | ";
+        }
+
+        cout << (char)(i+(int)'а') << "  " << table[i] << " | ";
+        if(i== 9  i== 20 || i == 31) cout << endl;
+    }
+
+}
+int main()
+{
+    SetConsoleCP(1251);
+    SetConsoleOutputCP(1251);
+    string text;
+    getline (cin, text);
+    DisplayLetterFrequencyTable(text);
+    return 0;
+}
