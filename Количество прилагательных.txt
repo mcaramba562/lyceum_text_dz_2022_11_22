@@ -1,0 +1,4 @@
+text1$ 489
+text2$ 396
+text3$ 297
+text4$ 346
